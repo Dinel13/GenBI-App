@@ -1,35 +1,14 @@
 import "react-native-gesture-handler";
 import React from "react";
-import { Button, View, Text } from "react-native";
+import { Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Ionicons } from '@expo/vector-icons';
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details", { name: "dd" })}
-        //navigate akan melihat apakah sudah ada stack, jika ada tinggal diopanngil
-        //push lansung membuat stack baru dan bagus untuk tmbah data
-      />
-    </View>
-  );
-}
-
-function DetailsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Details Screen</Text>
-      <Button
-        title="Update the title"
-        onPress={() => navigation.setOptions({ title: "Updated!" })}
-      />
-    </View>
-  );
-}
+import HeaderButton from "./components/UI/HeaderButton";
+import DetailArtikelScreen from "./Screens/DetailArtikel";
+import HomeScreen from "./Screens/HomeScreen";
+import Colors from "./constants/Colors";
 
 const Stack = createStackNavigator();
 
@@ -40,9 +19,10 @@ function App() {
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            backgroundColor: "#f4511e",
+            backgroundColor:
+              Platform.OS === "android" ? Colors.primary : "white",
           },
-          headerTintColor: "#fff",
+          headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
           headerTitleStyle: {
             fontWeight: "bold",
           },
@@ -58,15 +38,21 @@ function App() {
         />
         <Stack.Screen
           name="Details"
-          component={DetailsScreen}
+          component={DetailArtikelScreen}
           options={({ route }) => ({
             title: route.params.name,
             headerRight: () => (
-              <Button
-                onPress={() => alert("This is a button!")}
-                title="Info"
-                color="#fff"
-              />
+              <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                <Item
+                  title="Cart"
+                  iconName={
+                    Platform.OS === "android"
+                      ? "md-heart-empty"
+                      : "ios-heart-empty"
+                  }
+                  onPress={() => alert("This is a button!")}
+                />
+              </HeaderButtons>
             ),
           })}
         />

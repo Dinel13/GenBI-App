@@ -32,6 +32,7 @@ import DetailEventScreen from "../Screens/event/DetailEventScreen";
 import GenbiHomeScreen from "../Screens/genbi/GenbiHomeScreen";
 import GenbiDetailScreen from "../Screens/genbi/GenbiDetailScreen";
 import { DrawerContent } from "./DrawerContent";
+import CreateEventScreen from "../Screens/event/CreateEventScreen";
 
 const defaultScreenOptions = {
   headerStyle: {
@@ -131,6 +132,12 @@ const EventNavigator = () => {
         options={({ route }) => ({
           title: route.params.name,
         })}
+      />
+       <EventStackNavigator.Screen
+        name="Buat Event"
+        component={CreateEventScreen}
+        options={{ title: "Buat Event" }}
+
       />
     </EventStackNavigator.Navigator>
   );

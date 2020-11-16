@@ -18,6 +18,15 @@ const EventScreen = ({ navigation }) => {
           />
         </HeaderButtons>
       ),
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Cart"
+            iconName="md-create"
+            onPress={() =>  navigation.navigate('Buat Event')}
+          />
+        </HeaderButtons>
+      ),
     });
   }, []);
 

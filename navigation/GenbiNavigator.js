@@ -3,8 +3,9 @@ import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { DrawerActions } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
 import HeaderButton from "../components/UI/HeaderButton";
 import DetailArtikelScreen from "../Screens/DetailArtikel";
@@ -22,11 +23,12 @@ const defaultScreenOptions = {
   headerTitleStyle: {
     fontWeight: "bold",
   },
+  headerBackTitle: "Back",
 };
 
-//artikel stack
 const ArtikelStack = createStackNavigator();
 
+//artikel stack
 const ArtikelNavigator = () => {
   //untuk redux
   const artikel = useSelector((state) => state.artikel);
@@ -50,6 +52,15 @@ const ArtikelNavigator = () => {
         options={{
           title: "My home",
           // headerTitle: props => <LogoTitle {...props} />, bisa juga tampilkan title dengan komponen
+          headerLeft: (navigation) => (
+            <HeaderButtons HeaderButtonComponent={HeaderButton}>
+              <Item
+                title="Cart"
+                iconName="md-menu"
+                onPress={() => navigation.openDrawer()}
+              />
+            </HeaderButtons>
+          ),
         }}
       />
       <ArtikelStack.Screen
@@ -60,7 +71,7 @@ const ArtikelNavigator = () => {
           headerRight: () => (
             <HeaderButtons HeaderButtonComponent={HeaderButton}>
               <Item
-                title="Cart"
+                title="Liked"
                 iconName={headerRightIcon}
                 onPress={() => dispatch(likeArtikel(artikel.liked))}
               />
@@ -81,7 +92,15 @@ const EventNavigator = () => {
       <EventStackNavigator.Screen
         name="Event"
         component={EventScreen}
-        options={{ title: "Events" }}
+        options={{ title: "Events" , headerLeft: (navData) => (
+          <HeaderButtons HeaderButtonComponent={HeaderButton}>
+            <Item
+              title="Cart"
+              iconName="md-menu"
+              onPress={() => navData.navigation.dispatch(DrawerActions.openDrawer())}
+            />
+          </HeaderButtons>
+        ),}}
       />
       <EventStackNavigator.Screen
         name="Details"
@@ -97,30 +116,28 @@ const EventNavigator = () => {
 //drawer
 const AppDrawerNavigator = createDrawerNavigator();
 
-export const AppNavigator = () => {
+export const DrawerNavigator = () => {
   return (
-    <AppDrawerNavigator.Navigator
-      drawerContentOptions={{
-        activeTintColor: Colors.primary,
-      }}
-    >
+    <AppDrawerNavigator.Navigator initialRouteName="Artikel">
       <AppDrawerNavigator.Screen
         name="Artikel"
         component={ArtikelNavigator}
         options={{
+          headerShown: false,
           drawerIcon: (props) => (
             <Ionicons
               name={Platform.OS === "android" ? "md-list" : "ios-list"}
               size={23}
               color={Colors.primary}
             />
-          ),
+          )
         }}
       />
       <AppDrawerNavigator.Screen
         name="Event"
         component={EventNavigator}
         options={{
+          headerShown: false,
           drawerIcon: (props) => (
             <Ionicons
               name={Platform.OS === "android" ? "md-list" : "ios-list"}

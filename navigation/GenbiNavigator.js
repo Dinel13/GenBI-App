@@ -52,15 +52,6 @@ const ArtikelNavigator = () => {
         options={{
           title: "My home",
           // headerTitle: props => <LogoTitle {...props} />, bisa juga tampilkan title dengan komponen
-          headerLeft: (navigation) => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Cart"
-                iconName="md-menu"
-                onPress={() => navigation.openDrawer()}
-              />
-            </HeaderButtons>
-          ),
         }}
       />
       <ArtikelStack.Screen

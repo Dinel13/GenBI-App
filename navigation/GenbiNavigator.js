@@ -14,6 +14,8 @@ import Colors from "../constants/Colors";
 import { likeArtikel } from "../store/action/ArtikelAction";
 import EventScreen from "../Screens/event/EventScreen";
 import DetailEventScreen from "../Screens/event/DetailEventScreen";
+import GenbiHomeScreen from "../Screens/genbi/GenbiHomeScreen";
+import GenbiDetailScreen from "../Screens/genbi/GenbiDetailScreen";
 
 const defaultScreenOptions = {
   headerStyle: {
@@ -26,9 +28,31 @@ const defaultScreenOptions = {
   headerBackTitle: "Back",
 };
 
-const ArtikelStack = createStackNavigator();
+//genbi Stack
+const GenbiStack = createStackNavigator();
+const GenbiNavigator = () => {
+  return (
+    <GenbiStack.Navigator 
+    initialRouteName="GenBI"
+    screenOptions={defaultScreenOptions}>
+      <GenbiStack.Screen
+        name="GenBi"
+        component={GenbiHomeScreen}
+        options={{ title: "GenBI" }}
+      />
+      <GenbiStack.Screen
+        name="Detail"
+        component={GenbiDetailScreen}
+        options={({ route }) => ({
+          title: route.params.name})}
+      />
+    </GenbiStack.Navigator>
+  );
+};
 
 //artikel stack
+const ArtikelStack = createStackNavigator();
+
 const ArtikelNavigator = () => {
   //untuk redux
   const artikel = useSelector((state) => state.artikel);
@@ -83,15 +107,7 @@ const EventNavigator = () => {
       <EventStackNavigator.Screen
         name="Event"
         component={EventScreen}
-        options={{ title: "Events" , headerLeft: (navData) => (
-          <HeaderButtons HeaderButtonComponent={HeaderButton}>
-            <Item
-              title="Cart"
-              iconName="md-menu"
-              onPress={() => navData.navigation.dispatch(DrawerActions.openDrawer())}
-            />
-          </HeaderButtons>
-        ),}}
+        options={{ title: "Events" }}
       />
       <EventStackNavigator.Screen
         name="Details"
@@ -109,19 +125,19 @@ const AppDrawerNavigator = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
   return (
-    <AppDrawerNavigator.Navigator initialRouteName="Artikel">
+    <AppDrawerNavigator.Navigator initialRouteName="GenBI">
       <AppDrawerNavigator.Screen
-        name="Artikel"
-        component={ArtikelNavigator}
+        name="GenBI"
+        component={GenbiNavigator}
         options={{
           headerShown: false,
           drawerIcon: (props) => (
             <Ionicons
-              name={Platform.OS === "android" ? "md-list" : "ios-list"}
+              name={Platform.OS === "android" ? "md-people" : "ios-people"}
               size={23}
               color={Colors.primary}
             />
-          )
+          ),
         }}
       />
       <AppDrawerNavigator.Screen
@@ -131,7 +147,21 @@ export const DrawerNavigator = () => {
           headerShown: false,
           drawerIcon: (props) => (
             <Ionicons
-              name={Platform.OS === "android" ? "md-list" : "ios-list"}
+              name={Platform.OS === "android" ? "md-calendar" : "ios-calendar"}
+              size={23}
+              color={Colors.primary}
+            />
+          ),
+        }}
+      />
+      <AppDrawerNavigator.Screen
+        name="Artikel"
+        component={ArtikelNavigator}
+        options={{
+          headerShown: false,
+          drawerIcon: (props) => (
+            <Ionicons
+              name={Platform.OS === "android" ? "md-book" : "ios-book"}
               size={23}
               color={Colors.primary}
             />
@@ -141,4 +171,3 @@ export const DrawerNavigator = () => {
     </AppDrawerNavigator.Navigator>
   );
 };
- 

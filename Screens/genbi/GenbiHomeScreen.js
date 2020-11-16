@@ -34,7 +34,11 @@ const GenbiHomeScreen = ({ navigation }) => {
           onSelect ={() => {
             navigation.navigate('Detail',{
               name : itemData.item.title,
-              genbiId : itemData.item.id
+              genbiId : itemData.item.id,
+              foto:itemData.item.imageUri,
+              komsat : itemData.item.komsat,
+              address : itemData.item.address,
+              jabatan: itemData.item.jabatan
             })
           }}
         />

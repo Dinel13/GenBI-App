@@ -10,15 +10,58 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-import { likeArtikel } from "../../store/action/ArtikelAction";
+import {
+  likeArtikel,
+  unLikeArtikel,
+  bookmarkArtike,
+  unBookmarkArtike,
+} from "../../store/action/ArtikelAction";
 
 import Colors from "../../constants/Colors";
 
 const DetailArtikelScreen = ({ navigation, route }) => {
-
   //untuk redux
   const dispatch = useDispatch();
   const artikel = useSelector((state) => state.artikel);
+  const artikelID = route.params.id;
+  const pernahDiLike = artikel.liked.find(
+    (artikel) => artikel.id === artikelID
+  );
+  const pernahDiBookmark = artikel.bookmark.find(
+    (artikel) => artikel.id === artikelID
+  );
+
+  let likeTitle;
+  let likeOrUnLike;
+
+  if (pernahDiLike) {
+    if (!pernahDiLike.liked) {
+      likeOrUnLike = () => dispatch(likeArtikel(artikelID));
+      likeTitle = "Like";
+    } else {
+      likeTitle = "UnLike";
+      likeOrUnLike = () => dispatch(unLikeArtikel(artikelID));
+    }
+  } else {
+    likeOrUnLike = () => dispatch(likeArtikel(artikelID));
+    likeTitle = "Like";
+  }
+
+  let titleBookmark;
+  let bookmarkOrUnBookmark;
+
+  if (pernahDiBookmark) {
+    if (!pernahDiBookmark.bookmark) {
+      bookmarkOrUnBookmark = () => dispatch(bookmarkArtike(artikelID));
+      titleBookmark = "Bookmark";
+    } else {
+      bookmarkOrUnBookmark = () => dispatch(unBookmarkArtike(artikelID));
+      titleBookmark = "UnBookmark";
+    }
+  } else {
+    bookmarkOrUnBookmark = () => dispatch(bookmarkArtike(artikelID));
+    titleBookmark = "Bookmark";
+  }
 
   const [komen, setKomen] = useState("");
   const [isKomen, setisKomen] = useState(false);
@@ -41,13 +84,17 @@ const DetailArtikelScreen = ({ navigation, route }) => {
             label="dd"
             onChangeText={(text) => setKomen(text)}
           />
-          <Button title="komen"  color={Colors.accent} onPress={() => {}} />
-          <Button title="batal"  color={Colors.accent} onPress={() => setisKomen(false)} />
+          <Button title="komen" color={Colors.accent} onPress={() => {}} />
+          <Button
+            title="batal"
+            color={Colors.accent}
+            onPress={() => setisKomen(false)}
+          />
         </View>
       )}
       <View style={styles.action}>
-        <Button title="Bookmark" onPress={() => {}} />
-        <Button title="Like"  onPress={() => dispatch(likeArtikel(artikel.liked))} />
+        <Button title={titleBookmark} onPress={bookmarkOrUnBookmark} />
+        <Button title={likeTitle} onPress={likeOrUnLike} />
         <Button
           title={isKomen ? "Save" : "Komen"}
           onPress={() => setisKomen((oldIsKOmen) => !oldIsKOmen)}

@@ -9,26 +9,19 @@ import {
   TextInput,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import HeaderButton from "../../components/UI/HeaderButton";
+import { likeArtikel } from "../../store/action/ArtikelAction";
 
 import Colors from "../../constants/Colors";
-//import { TextInput } from "react-native-paper";
 
 const DetailArtikelScreen = ({ navigation, route }) => {
+
+  //untuk redux
+  const dispatch = useDispatch();
+  const artikel = useSelector((state) => state.artikel);
+
   const [komen, setKomen] = useState("");
   const [isKomen, setisKomen] = useState(false);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <HeaderButtons HeaderButtonComponent={HeaderButton}>
-          <Item title="Cart" iconName="md-bookmark" onPress={() => {}} />
-        </HeaderButtons>
-      ),
-    });
-  }, []);
 
   //untuk redux
   return (
@@ -48,13 +41,13 @@ const DetailArtikelScreen = ({ navigation, route }) => {
             label="dd"
             onChangeText={(text) => setKomen(text)}
           />
-          <Button title="komen" onPress={() => {}} />
-          <Button title="batal" onPress={() => setisKomen(false)} />
+          <Button title="komen"  color={Colors.accent} onPress={() => {}} />
+          <Button title="batal"  color={Colors.accent} onPress={() => setisKomen(false)} />
         </View>
       )}
       <View style={styles.action}>
         <Button title="Bookmark" onPress={() => {}} />
-        <Button title="Like" onPress={() => {}} />
+        <Button title="Like"  onPress={() => dispatch(likeArtikel(artikel.liked))} />
         <Button
           title={isKomen ? "Save" : "Komen"}
           onPress={() => setisKomen((oldIsKOmen) => !oldIsKOmen)}

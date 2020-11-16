@@ -12,7 +12,7 @@ const GenbiDetailScreen = ({ navigation }) => {
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
           <Item
             title="Cart"
-            iconName="md-menu"
+            iconName="md-star-outline"
             onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
           />
         </HeaderButtons>

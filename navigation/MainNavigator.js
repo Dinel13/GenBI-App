@@ -1,13 +1,15 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { Provider as PaperProvider } from "react-native-paper";
+import { DrawerNavigator } from "./GenbiNavigator";
 
-import { DrawerNavigator} from './GenbiNavigator';
-
-const MainNavigator = props => {
+const MainNavigator = (props) => {
   return (
-    <NavigationContainer>
-      <DrawerNavigator/>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <DrawerNavigator />
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 

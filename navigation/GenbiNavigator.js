@@ -38,7 +38,7 @@ const GenbiNavigator = () => {
       <GenbiStack.Screen
         name="GenBi"
         component={GenbiHomeScreen}
-        options={{ title: "GenBI" }}
+        options={{ title: "GenBI Sulsel" }}
       />
       <GenbiStack.Screen
         name="Detail"
@@ -74,7 +74,7 @@ const ArtikelNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          title: "My home",
+          title: "Semua Artikel",
           // headerTitle: props => <LogoTitle {...props} />, bisa juga tampilkan title dengan komponen
         }}
       />
@@ -107,7 +107,7 @@ const EventNavigator = () => {
       <EventStackNavigator.Screen
         name="Event"
         component={EventScreen}
-        options={{ title: "Events" }}
+        options={{ title: "Semua Event" }}
       />
       <EventStackNavigator.Screen
         name="Details"

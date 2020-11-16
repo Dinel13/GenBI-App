@@ -3,9 +3,24 @@ import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { DrawerActions } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
+import {
+  DrawerItem,
+  DrawerContentScrollView,
+} from '@react-navigation/drawer';
+import {
+  useTheme,
+  Avatar,
+  Title,
+  Caption,
+  Paragraph,
+  Drawer,
+  Text,
+  TouchableRipple,
+  Switch,
+} from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import HeaderButton from "../components/UI/HeaderButton";
 import DetailArtikelScreen from "../Screens/DetailArtikel";
@@ -16,6 +31,7 @@ import EventScreen from "../Screens/event/EventScreen";
 import DetailEventScreen from "../Screens/event/DetailEventScreen";
 import GenbiHomeScreen from "../Screens/genbi/GenbiHomeScreen";
 import GenbiDetailScreen from "../Screens/genbi/GenbiDetailScreen";
+import { DrawerContent } from "./DrawerContent";
 
 const defaultScreenOptions = {
   headerStyle: {
@@ -125,7 +141,7 @@ const AppDrawerNavigator = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
   return (
-    <AppDrawerNavigator.Navigator initialRouteName="GenBI">
+    <AppDrawerNavigator.Navigator initialRouteName="GenBI" drawerContent={(props) => <DrawerContent {...props} />}>
       <AppDrawerNavigator.Screen
         name="GenBI"
         component={GenbiNavigator}

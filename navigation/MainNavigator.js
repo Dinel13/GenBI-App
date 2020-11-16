@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { AppNavigator} from './GenbiNavigator';
+import { DrawerNavigator} from './GenbiNavigator';
 
 const MainNavigator = props => {
   return (
     <NavigationContainer>
-      <AppNavigator/>
+      <DrawerNavigator/>
     </NavigationContainer>
   );
 };

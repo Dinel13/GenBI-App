@@ -12,8 +12,7 @@ const GenbiDetailScreen = ({ navigation, route }) => {
   const genbi = useSelector((state) => state.genbi);
   const genbiID = route.params.genbiId;
   const pernahDiLike = genbi.genbis.find((genbi) => genbi.id === genbiID);
-  console.log(genbi);
-  console.log(genbiID);
+  
   let startIcon;
   let likeOrUnLike;
 
@@ -22,16 +21,13 @@ const GenbiDetailScreen = ({ navigation, route }) => {
       likeOrUnLike = () => dispatch(updateLikeGenbi(genbiID, true));
       startIcon =
         Platform.OS === "android" ? "md-star-outline" : "ios-star-outline";
-      console.log(pernahDiLike.like);
     } else {
-      console.log(pernahDiLike.like);
       likeOrUnLike = () => dispatch(updateLikeGenbi(genbiID, false));
       startIcon = Platform.OS === "android" ? "md-star" : "ios-star";
     }
   } else {
     startIcon =
       Platform.OS === "android" ? "md-star-outline" : "ios-star-outline";
-    console.log(pernahDiLike);
     likeOrUnLike = () => dispatch(likeGenbi(genbiID, true));
   }
 

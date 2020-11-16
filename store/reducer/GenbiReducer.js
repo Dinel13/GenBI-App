@@ -8,7 +8,6 @@ export default (state = initState, action) => {
   switch (action.type) {
     case LIKE_GENBI:
       const newGenbi = { id: action.id, like: true };
-      console.log(newGenbi);
       return {
         ...state,
         genbis: state.genbis.concat(newGenbi),
@@ -20,8 +19,6 @@ export default (state = initState, action) => {
       );
 
       let updateGenbi;
-
-      console.log(indexGenbi);
       //orang sudah pernah di like
       if (state.genbis[indexGenbi].like) {
         updateGenbi = {

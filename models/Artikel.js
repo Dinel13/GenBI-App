@@ -6,7 +6,6 @@ class Artikel {
     this.imageUri = imageUri;
     this.isi = isi;
     this.komen = komen;
-    this.komsat = komsat;
   }
 }
 

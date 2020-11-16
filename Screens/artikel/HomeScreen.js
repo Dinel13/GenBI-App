@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { Button, View, Text } from "react-native";
+import { Button, View, Text , FlatList } from "react-native";
 import { DrawerActions } from "@react-navigation/native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import HeaderButton from "../../components/UI/HeaderButton";
+import ArtikelItem from "../../components/ArtikelItem"
+import {artikel} from "../../DATA/artikel"
 
 
 const HomeScreen = ({ navigation }) => {
@@ -33,15 +35,24 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details", { name: "dd" })}
-        //navigate akan melihat apakah sudah ada stack, jika ada tinggal diopanngil
-        //push lansung membuat stack baru dan bagus untuk tmbah data
-      />
-    </View>
+    <FlatList data={artikel}
+    keyExtractor={Item => Item.id}
+    renderItem={itemData => (<ArtikelItem     
+      key={itemData.item.id}
+      image={itemData.item.imageUri}
+      title={itemData.item.title}
+      userId={itemData.item.userId}
+      onSelect ={() => {
+        navigation.navigate('Details',{
+          name : itemData.item.title,
+          id : itemData.item.id,
+          genbiId : itemData.item.userId,
+          foto:itemData.item.imageUri,
+          isi : itemData.item.isi,
+          komen : itemData.item.komen,
+        })
+      }}
+    />)} />
   );
 };
 

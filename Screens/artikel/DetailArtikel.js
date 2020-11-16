@@ -2,9 +2,9 @@ import React from "react";
 import { Button, View, Text } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-import { likeArtikel } from "../store/action/ArtikelAction";
+import { likeArtikel } from "../../store/action/ArtikelAction";
 
-import Colors from "../constants/Colors";
+import Colors from "../../constants/Colors";
 
 const DetailArtikelScreen = ({ navigation }) => {
 

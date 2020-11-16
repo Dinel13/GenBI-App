@@ -23,8 +23,8 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import HeaderButton from "../components/UI/HeaderButton";
-import DetailArtikelScreen from "../Screens/DetailArtikel";
-import HomeScreen from "../Screens/HomeScreen";
+import DetailArtikelScreen from "../Screens/artikel/DetailArtikel";
+import HomeScreen from "../Screens/artikel/HomeScreen";
 import Colors from "../constants/Colors";
 import { likeArtikel } from "../store/action/ArtikelAction";
 import EventScreen from "../Screens/event/EventScreen";

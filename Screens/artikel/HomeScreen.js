@@ -3,7 +3,7 @@ import { Button, View, Text } from "react-native";
 import { DrawerActions } from "@react-navigation/native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import HeaderButton from "../components/UI/HeaderButton";
+import HeaderButton from "../../components/UI/HeaderButton";
 
 
 const HomeScreen = ({ navigation }) => {

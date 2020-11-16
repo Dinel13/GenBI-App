@@ -5,10 +5,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  DrawerItem,
-  DrawerContentScrollView,
-} from '@react-navigation/drawer';
+import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
 import {
   useTheme,
   Avatar,
@@ -19,8 +16,8 @@ import {
   Text,
   TouchableRipple,
   Switch,
-} from 'react-native-paper';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+} from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import HeaderButton from "../components/UI/HeaderButton";
 import DetailArtikelScreen from "../Screens/artikel/DetailArtikel";
@@ -33,6 +30,7 @@ import GenbiHomeScreen from "../Screens/genbi/GenbiHomeScreen";
 import GenbiDetailScreen from "../Screens/genbi/GenbiDetailScreen";
 import { DrawerContent } from "./DrawerContent";
 import CreateEventScreen from "../Screens/event/CreateEventScreen";
+import CreateArtikelScreen from "../Screens/artikel/CreateArtikelScreen";
 
 const defaultScreenOptions = {
   headerStyle: {
@@ -49,9 +47,10 @@ const defaultScreenOptions = {
 const GenbiStack = createStackNavigator();
 const GenbiNavigator = () => {
   return (
-    <GenbiStack.Navigator 
-    initialRouteName="GenBI"
-    screenOptions={defaultScreenOptions}>
+    <GenbiStack.Navigator
+      initialRouteName="GenBI"
+      screenOptions={defaultScreenOptions}
+    >
       <GenbiStack.Screen
         name="GenBi"
         component={GenbiHomeScreen}
@@ -61,7 +60,8 @@ const GenbiNavigator = () => {
         name="Detail"
         component={GenbiDetailScreen}
         options={({ route }) => ({
-          title: route.params.name})}
+          title: route.params.name,
+        })}
       />
     </GenbiStack.Navigator>
   );
@@ -111,6 +111,13 @@ const ArtikelNavigator = () => {
           ),
         })}
       />
+      <ArtikelStack.Screen
+        name="Buat Artikel"
+        component={CreateArtikelScreen}
+        options={{
+          title: "Buat Artikel",
+        }}
+      />
     </ArtikelStack.Navigator>
   );
 };
@@ -133,11 +140,10 @@ const EventNavigator = () => {
           title: route.params.name,
         })}
       />
-       <EventStackNavigator.Screen
+      <EventStackNavigator.Screen
         name="Buat Event"
         component={CreateEventScreen}
         options={{ title: "Buat Event" }}
-
       />
     </EventStackNavigator.Navigator>
   );
@@ -148,7 +154,10 @@ const AppDrawerNavigator = createDrawerNavigator();
 
 export const DrawerNavigator = () => {
   return (
-    <AppDrawerNavigator.Navigator initialRouteName="GenBI" drawerContent={(props) => <DrawerContent {...props} />}>
+    <AppDrawerNavigator.Navigator
+      initialRouteName="GenBI"
+      drawerContent={(props) => <DrawerContent {...props} />}
+    >
       <AppDrawerNavigator.Screen
         name="GenBI"
         component={GenbiNavigator}

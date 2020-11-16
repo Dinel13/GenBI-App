@@ -5,9 +5,11 @@ import { Provider } from "react-redux";
 
 import ArtikelReducer from "./store/reducer/ActionReducer";
 import MainNavigator from "./navigation/MainNavigator";
+import GenbiReducer from "./store/reducer/GenbiReducer";
 
 const rootReducer = combineReducers({
   artikel: ArtikelReducer,
+  genbi : GenbiReducer
 });
 
 const store = createStore(rootReducer);

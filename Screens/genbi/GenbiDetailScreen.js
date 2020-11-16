@@ -5,34 +5,45 @@ import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/UI/HeaderButton";
 import { useDispatch, useSelector } from "react-redux";
 
-import { likeGenbi } from "../../store/action/GenbiAction";
+import { likeGenbi , updateLikeGenbi} from "../../store/action/GenbiAction";
 
 const GenbiDetailScreen = ({ navigation, route }) => {
-  const genbi = useSelector((state) => state.genbi);
   const dispatch = useDispatch();
+  const genbi = useSelector((state) => state.genbi);
+  const genbiID = route.params.genbiId;
+  const pernahDiLike = genbi.genbis.find((genbi) => genbi.id === genbiID);
+  console.log(genbi);
+  console.log(genbiID);
   let startIcon;
-  if (!genbi.liked) {
+  let likeOrUnLike;
+
+  if (pernahDiLike) {
+    if (!pernahDiLike.like) {
+      likeOrUnLike = () => dispatch(updateLikeGenbi(genbiID, true));
+      startIcon =
+        Platform.OS === "android" ? "md-star-outline" : "ios-star-outline";
+      console.log(pernahDiLike.like);
+    } else {
+      console.log(pernahDiLike.like);
+      likeOrUnLike = () => dispatch(updateLikeGenbi(genbiID, false));
+      startIcon = Platform.OS === "android" ? "md-star" : "ios-star";
+    }
+  } else {
     startIcon =
       Platform.OS === "android" ? "md-star-outline" : "ios-star-outline";
-      console.log('fff');
-  } else {
-    console.log('bb');
-    startIcon = Platform.OS === "android" ? "md-star" : "ios-star";
+    console.log(pernahDiLike);
+    likeOrUnLike = () => dispatch(likeGenbi(genbiID, true));
   }
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={HeaderButton}>
-          <Item
-            title="Cart"
-            iconName={startIcon}
-            onPress={() => dispatch(likeGenbi(genbi.liked))}
-          />
+          <Item title="Cart" iconName={startIcon} onPress={likeOrUnLike} />
         </HeaderButtons>
       ),
     });
-  }, [HeaderButtons, genbi.liked]);
+  }, [genbiID, pernahDiLike, likeOrUnLike, genbi]);
 
   return (
     <ScrollView contentContainerStyle={{ alignItems: "center" }}>

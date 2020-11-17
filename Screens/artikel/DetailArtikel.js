@@ -7,9 +7,12 @@ import {
   Text,
   Image,
   TextInput,
+  Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
+import HeaderButton from "../../components/UI/HeaderButton";
 import {
   likeArtikel,
   unLikeArtikel,
@@ -33,18 +36,24 @@ const DetailArtikelScreen = ({ navigation, route }) => {
 
   let likeTitle;
   let likeOrUnLike;
+  let headerRightIcon;
 
   if (pernahDiLike) {
     if (!pernahDiLike.liked) {
       likeOrUnLike = () => dispatch(likeArtikel(artikelID));
       likeTitle = "Like";
+      headerRightIcon =
+        Platform.OS === "android" ? "md-heart-empty" : "ios-heart-empty";
     } else {
+      headerRightIcon = Platform.OS === "android" ? "md-heart" : "ios-heart";
       likeTitle = "UnLike";
       likeOrUnLike = () => dispatch(unLikeArtikel(artikelID));
     }
   } else {
     likeOrUnLike = () => dispatch(likeArtikel(artikelID));
     likeTitle = "Like";
+    headerRightIcon =
+      Platform.OS === "android" ? "md-heart-empty" : "ios-heart-empty";
   }
 
   let titleBookmark;
@@ -65,6 +74,20 @@ const DetailArtikelScreen = ({ navigation, route }) => {
 
   const [komen, setKomen] = useState("");
   const [isKomen, setisKomen] = useState(false);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Liked"
+            iconName={headerRightIcon}
+            onPress={likeOrUnLike}
+          />
+        </HeaderButtons>
+      ),
+    });
+  }, [pernahDiLike]);
 
   //untuk redux
   return (

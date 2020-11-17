@@ -2,28 +2,10 @@ import React from "react";
 import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { useSelector, useDispatch } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
-import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
-import {
-  useTheme,
-  Avatar,
-  Title,
-  Caption,
-  Paragraph,
-  Drawer,
-  Text,
-  TouchableRipple,
-  Switch,
-} from "react-native-paper";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-import HeaderButton from "../components/UI/HeaderButton";
 import DetailArtikelScreen from "../Screens/artikel/DetailArtikel";
 import HomeScreen from "../Screens/artikel/HomeScreen";
 import Colors from "../constants/Colors";
-import { likeArtikel } from "../store/action/ArtikelAction";
 import EventScreen from "../Screens/event/EventScreen";
 import DetailEventScreen from "../Screens/event/DetailEventScreen";
 import GenbiHomeScreen from "../Screens/genbi/GenbiHomeScreen";
@@ -71,17 +53,6 @@ const GenbiNavigator = () => {
 const ArtikelStack = createStackNavigator();
 
 const ArtikelNavigator = () => {
-  //untuk redux
-  const artikel = useSelector((state) => state.artikel);
-  const dispatch = useDispatch();
-  let headerRightIcon;
-  if (!artikel.liked) {
-    headerRightIcon =
-      Platform.OS === "android" ? "md-heart-empty" : "ios-heart-empty";
-  } else {
-    headerRightIcon = Platform.OS === "android" ? "md-heart" : "ios-heart";
-  }
-
   return (
     <ArtikelStack.Navigator
       initialRouteName="Home"
@@ -100,15 +71,6 @@ const ArtikelNavigator = () => {
         component={DetailArtikelScreen}
         options={({ route }) => ({
           title: route.params.name,
-          headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButton}>
-              <Item
-                title="Liked"
-                iconName={headerRightIcon}
-                onPress={() => dispatch(likeArtikel(artikel.liked))}
-              />
-            </HeaderButtons>
-          ),
         })}
       />
       <ArtikelStack.Screen

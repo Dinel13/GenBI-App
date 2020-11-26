@@ -1,24 +1,17 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Button, Platform } from "react-native";
 import {
-  DrawerItem,
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import {
-  useTheme,
-  Avatar,
-  Title,
-  Caption,
-  Paragraph,
-  Drawer,
-  Text,
-  TouchableRipple,
-  Switch,
-} from "react-native-paper";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { Avatar, Title, Caption, Paragraph, Drawer } from "react-native-paper";
+
+import * as authActions from '../store/action/AuthAction';
+import Colors from "../constants/Colors";
 
 export function DrawerContent(props) {
+  const dispatch = useDispatch();
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
@@ -47,9 +40,18 @@ export function DrawerContent(props) {
             </View>
           </View>
         </View>
-       
+
         <Drawer.Section style={styles.drawerSection}>
           <DrawerItemList {...props} />
+          <View style={styles.logout}>
+            <Button
+              title="LOGUT"
+              onPress={() => {
+                dispatch(authActions.logout());
+              }}
+              color={Platform.OS === "android" ? Colors.accent : "white"}
+            />
+          </View>
           {/*
           <DrawerItem
             icon={({ color, size }) => (
@@ -135,5 +137,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: 12,
     paddingHorizontal: 16,
+  },
+  logout: {
+    borderRadius: 20,
+    marginHorizontal: 20,
+    marginVertical: 30,
   },
 });

@@ -16,6 +16,8 @@ import CreateArtikelScreen from "../Screens/artikel/CreateArtikelScreen";
 import Profile from "../Screens/profile/Prifile";
 import Bookmark from "../Screens/bookmark/Bookmark";
 import EditProfile from "../Screens/profile/EditPrifile";
+import AuthScreen from "../Screens/AuthScreen";
+
 
 const defaultScreenOptions = {
   headerStyle: {
@@ -221,5 +223,22 @@ export const DrawerNavigator = () => {
         }}
       />
     </AppDrawerNavigator.Navigator>
+  );
+};
+
+//auth
+const AuthStackNavigator = createStackNavigator();
+
+export const AuthNavigator = () => {
+  return (
+    <AuthStackNavigator.Navigator screenOptions={defaultScreenOptions}>
+      <AuthStackNavigator.Screen
+        name="Auth"
+        component={AuthScreen}
+        options={{
+          headerTitle: 'Authenticate'
+        }}
+      />
+    </AuthStackNavigator.Navigator>
   );
 };

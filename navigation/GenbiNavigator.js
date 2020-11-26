@@ -15,6 +15,7 @@ import CreateEventScreen from "../Screens/event/CreateEventScreen";
 import CreateArtikelScreen from "../Screens/artikel/CreateArtikelScreen";
 import Profile from "../Screens/profile/Prifile";
 import Bookmark from "../Screens/bookmark/Bookmark";
+import EditProfile from "../Screens/profile/EditPrifile";
 
 const defaultScreenOptions = {
   headerStyle: {
@@ -113,7 +114,25 @@ const EventNavigator = () => {
   );
 };
 
-//
+//profole stack navigator
+const Profilestack = createStackNavigator();
+
+const ProvifileNavigator = () => {
+  return (
+    <Profilestack.Navigator screenOptions={defaultScreenOptions}>
+      <Profilestack.Screen
+        name="My Prpfile"
+        component={Profile}
+        options={{ title: "My Profile" }}
+      />
+      <Profilestack.Screen
+        name="Edit Profile"
+        component={EditProfile}
+        options={{ title: "Edit Profile" }}
+      />
+    </Profilestack.Navigator>
+  );
+};
 //drawer
 const AppDrawerNavigator = createDrawerNavigator();
 
@@ -167,29 +186,14 @@ export const DrawerNavigator = () => {
       />
       <AppDrawerNavigator.Screen
         name="Profile"
-        component={Profile}
+        component={ProvifileNavigator}
         options={{
-          headerStyle: {
-            backgroundColor:
-              Platform.OS === "android" ? Colors.primary : "white",
-          },
-          headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-          headerBackTitle: "Back",
+          headerShown : false,
           drawerIcon: (props) => (
             <MaterialCommunityIcons
               name="account-outline"
               size={23}
               color={Colors.primary}
-            />
-          ),
-          headerRight: (props) => (
-            <MaterialCommunityIcons
-              name="account-edit."
-              size={23}
-              color={Platform.OS === 'android' ? 'white' : Colors.primary}
             />
           ),
         }}

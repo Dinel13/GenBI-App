@@ -2,7 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import DetailArtikelScreen from "../Screens/artikel/DetailArtikel";
 import HomeScreen from "../Screens/artikel/HomeScreen";
 import Colors from "../constants/Colors";
@@ -13,6 +13,8 @@ import GenbiDetailScreen from "../Screens/genbi/GenbiDetailScreen";
 import { DrawerContent } from "./DrawerContent";
 import CreateEventScreen from "../Screens/event/CreateEventScreen";
 import CreateArtikelScreen from "../Screens/artikel/CreateArtikelScreen";
+import Profile from "../Screens/profile/Prifile";
+import Bookmark from "../Screens/bookmark/Bookmark";
 
 const defaultScreenOptions = {
   headerStyle: {
@@ -111,6 +113,7 @@ const EventNavigator = () => {
   );
 };
 
+//
 //drawer
 const AppDrawerNavigator = createDrawerNavigator();
 
@@ -156,6 +159,57 @@ export const DrawerNavigator = () => {
           drawerIcon: (props) => (
             <Ionicons
               name={Platform.OS === "android" ? "md-book" : "ios-book"}
+              size={23}
+              color={Colors.primary}
+            />
+          ),
+        }}
+      />
+      <AppDrawerNavigator.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerStyle: {
+            backgroundColor:
+              Platform.OS === "android" ? Colors.primary : "white",
+          },
+          headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerBackTitle: "Back",
+          drawerIcon: (props) => (
+            <MaterialCommunityIcons
+              name="account-outline"
+              size={23}
+              color={Colors.primary}
+            />
+          ),
+          headerRight: (props) => (
+            <MaterialCommunityIcons
+              name="account-edit."
+              size={23}
+              color={Platform.OS === 'android' ? 'white' : Colors.primary}
+            />
+          ),
+        }}
+      />
+      <AppDrawerNavigator.Screen
+        name="Bookmark"
+        component={Bookmark}
+        options={{
+          headerStyle: {
+            backgroundColor:
+              Platform.OS === "android" ? Colors.primary : "white",
+          },
+          headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerBackTitle: "Back",
+          drawerIcon: (props) => (
+            <MaterialCommunityIcons
+              name="bookmark-outline"
               size={23}
               color={Colors.primary}
             />

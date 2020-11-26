@@ -1,6 +1,10 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { DrawerItem, DrawerContentScrollView ,DrawerItemList } from "@react-navigation/drawer";
+import {
+  DrawerItem,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from "@react-navigation/drawer";
 import {
   useTheme,
   Avatar,
@@ -43,8 +47,10 @@ export function DrawerContent(props) {
             </View>
           </View>
         </View>
+       
         <Drawer.Section style={styles.drawerSection}>
-        <DrawerItemList {...props} />
+          <DrawerItemList {...props} />
+          {/*
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
@@ -56,13 +62,14 @@ export function DrawerContent(props) {
             label="Profile"
             onPress={() => {}}
           />
+          
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons name="tune" color={color} size={size} />
             )}
             label="Preferences"
             onPress={() => {}}
-          />
+            /> 
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
@@ -73,8 +80,9 @@ export function DrawerContent(props) {
             )}
             label="Bookmarks"
             onPress={() => {}}
-          />
+          />*/}
         </Drawer.Section>
+        {/*
         <Drawer.Section title="Preferences">
           <TouchableRipple onPress={() => {}}>
             <View style={styles.preference}>
@@ -84,7 +92,7 @@ export function DrawerContent(props) {
               </View>
             </View>
           </TouchableRipple>
-        </Drawer.Section>
+        </Drawer.Section> */}
       </View>
     </DrawerContentScrollView>
   );

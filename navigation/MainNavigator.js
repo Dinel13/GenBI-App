@@ -13,9 +13,10 @@ const MainNavigator = (props) => {
     return (
     <PaperProvider>
       <NavigationContainer>
-        {isAuth && <DrawerNavigator />}
-      {!isAuth && didTryAutoLogin && <AuthNavigator />}
-      {!isAuth && !didTryAutoLogin && <StartupScreen />}
+        {!isAuth && <DrawerNavigator />}
+      {//!isAuth && didTryAutoLogin && <AuthNavigator />}
+      //!isAuth && !didTryAutoLogin && <StartupScreen />
+      }
       </NavigationContainer>
     </PaperProvider>
   );

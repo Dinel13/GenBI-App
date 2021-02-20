@@ -8,11 +8,13 @@ import ArtikelReducer from "./store/reducer/ActionReducer";
 import MainNavigator from "./navigation/MainNavigator";
 import GenbiReducer from "./store/reducer/GenbiReducer";
 import AuthReducer from "./store/reducer/AuthReducer";
+import UserReducer from "./store/reducer/UserReducer";
 
 const rootReducer = combineReducers({
   artikel: ArtikelReducer,
   genbi : GenbiReducer,
-  auth : AuthReducer
+  auth : AuthReducer,
+  user : UserReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
